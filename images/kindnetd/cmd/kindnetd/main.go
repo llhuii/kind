@@ -104,7 +104,8 @@ func main() {
 		var nodes *corev1.NodeList
 		var err error
 		for i := 0; i < 5; i++ {
-			nodes, err = clientset.CoreV1().Nodes().List(context.TODO(), metav1.ListOptions{})
+			timeout := int64(1)
+			nodes, err = clientset.CoreV1().Nodes().List(context.TODO(), metav1.ListOptions{TimeoutSeconds: &timeout})
 			if err == nil {
 				break
 			}
